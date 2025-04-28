@@ -1,16 +1,12 @@
-// ----------------------VARIABLE DECLARATION---------------------------
 const soundCtx = new AudioContext();
-
 //------------------------AUDIO DECODING & STOP/START FUNCTION--------------------
 let source = null;
 let audioBuffer;
-
 document.getElementById("file").addEventListener("change", async (event) => {
   let file = event.target.files[0];
   let arraybuf = await file.arrayBuffer();
   audioBuffer = await soundCtx.decodeAudioData(arraybuf);
 });
-
 const playAudio = function () {
   if (audioBuffer) {
     if (source) {
@@ -18,7 +14,6 @@ const playAudio = function () {
       source = null;
     }
     source = soundCtx.createBufferSource();
-
     source.buffer = audioBuffer;
     source.connect(inputGain);
     source.start();
@@ -31,29 +26,25 @@ const stopAudio = function () {
     source = null;
   }
 };
-
 //---------------------------MORE FUNCTION EXPRESSIONS-------------
 const dBtoA = function (linAmp) {
   return Math.pow(10, linAmp / 20);
 };
 
 const updateInputGain = function () {
-  let amp = dBtoA((inputFader.value / 10) * 40 - 40);
-  inputGain.gain.exponentialRampToValueAtTime(amp, soundCtx.currentTime + 0.01);
+  let amp = dBtoA((inputFader.value / 10) * 60 - 40);
+  inputGain.gain.exponentialRampToValueAtTime(amp, soundCtx.currentTime);
   inputLabel.innerText = `${inputFader.value} `;
 };
 //-----------------------------------------------------
 const updateOutputGain = function () {
-  let amp = dBtoA((outputFader.value / 10) * 40 - 40);
-  outputGain.gain.exponentialRampToValueAtTime(
-    amp,
-    soundCtx.currentTime + 0.01
-  );
+  let amp = dBtoA((outputFader.value / 10) * 60 - 40);
+  outputGain.gain.exponentialRampToValueAtTime(amp, soundCtx.currentTime);
   outputLabel.innerText = `${outputFader.value} `;
 };
 //----------------------------------ATTACK & RELEASE----------------
 function scaleAttack(val) {
-  const min = 0.0001; // 0.1ms
+  const min = 0.00005; // 50 us
   const max = 0.03; // 30ms
   return min + (val / 10) * (max - min);
 }
@@ -78,11 +69,11 @@ const updateRelease = function () {
 
 //---------------------------COMPRESSOR VALUES--------------------
 let compressor = soundCtx.createDynamicsCompressor();
-compressor.threshold.setValueAtTime(-25, soundCtx.currentTime); // dB
+compressor.threshold.setValueAtTime(-20, soundCtx.currentTime); // dB
 compressor.knee.setValueAtTime(10, soundCtx.currentTime); // dB
 
 //compressor.ratio.setValueAtTime(20, soundCtx.currentTime); // ratio
-compressor.attack.setValueAtTime(0.2, soundCtx.currentTime); // sec
+compressor.attack.setValueAtTime(0.5, soundCtx.currentTime); // sec
 compressor.release.setValueAtTime(0.25, soundCtx.currentTime); // sec
 //---------------------------DROPDOWN-------------------------
 const updateRatio = function () {
@@ -106,10 +97,8 @@ function updateGainReductionMeter() {
 
   requestAnimationFrame(updateGainReductionMeter);
 }
-
-// Start the meter loop
 updateGainReductionMeter();
-// asstance from chatGBT was used for the meter.
+// assistance from chatGBT was used for the meter.
 //---------------------------OVERDRIVE VALUES--------------------
 
 // Distortion curve for the waveshaper, thanks to Kevin Ennis
@@ -137,7 +126,6 @@ function makeDistortionCurve(amount, mode = "dist2") {
 const distortionButtons = document.querySelectorAll(
   "#distortionControls button"
 );
-
 distortionButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const mode = button.dataset.mode;
@@ -155,19 +143,17 @@ distortionButtons.forEach((button) => {
         amount = 0;
         break;
     }
-
     // Set the distortion curve
     dist.curve = makeDistortionCurve(amount, mode);
     console.log(`Distortion mode set to: ${mode}`);
   });
 });
-
 //--------------------------INPUT GAIN----------------------------
 let inputGain = soundCtx.createGain();
-inputGain.gain.value = 0.5;
+inputGain.gain.value = 0.2; //appox value halfway between my gain values
 //--------------------------MASTER GAIN---------------------------
 let outputGain = soundCtx.createGain();
-outputGain.gain.value = 0.5;
+outputGain.gain.value = 0.2; //appox value halfway between my gain values
 //--------------------------ROUTING-------------------------------
 inputGain.connect(compressor);
 compressor.connect(dist);
