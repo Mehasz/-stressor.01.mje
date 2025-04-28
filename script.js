@@ -98,7 +98,7 @@ function updateGainReductionMeter() {
   requestAnimationFrame(updateGainReductionMeter);
 }
 updateGainReductionMeter();
-// assistance from chatGBT was used for the meter.
+// assistance from chatGPT was used for the meter.
 //---------------------------OVERDRIVE VALUES--------------------
 
 // Distortion curve for the waveshaper, thanks to Kevin Ennis
@@ -116,7 +116,7 @@ function makeDistortionCurve(amount, mode = "dist2") {
     if (mode === "dist2") {
       curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
     } else if (mode === "dist3") {
-      curve[i] = Math.tanh(k * x) / 2; //chat GBT started this and I dialed it in
+      curve[i] = Math.tanh(k * x) / 2; //chat GPT started this and I dialed it in
     } else {
       curve[i] = x;
     }
