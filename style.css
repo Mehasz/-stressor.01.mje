@@ -1,0 +1,110 @@
+body {
+  background-color: #111;
+  color: #eee;
+  font-family: "Figtree", sans-serif;
+  padding: 30px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.2rem;
+  color: #f0f0f0;
+  margin-bottom: 30px;
+  text-shadow: 0 0 4px #999;
+}
+
+/* Labels and Text */
+label,
+p {
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+/* Sliders */
+input[type="range"] {
+  width: 500px;
+  margin: 15px;
+  accent-color: #ffffff;
+  background: transparent;
+}
+
+/* Dropdown (Ratio Selector) */
+select {
+  font-size: 1rem;
+  padding: 5px 10px;
+  background: #f9f9f795;
+  color: #000000;
+  border: 1px solid #dd0808;
+  border-radius: 4px;
+}
+
+/* Buttons */
+button {
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #777;
+  padding: 10px 20px;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+/* Gain Reduction Meter */
+.meter {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 20px;
+  height: 200px;
+  margin: 20px auto;
+  gap: 2px;
+  background: #000;
+  padding: 5px;
+  border: 1px solid #444;
+}
+
+.segment {
+  width: 100%;
+  flex: 1;
+  background: #111;
+  border-radius: 2px;
+  transition: background 0.1s ease-in-out;
+}
+
+.segment.active {
+  background-color: yellow;
+}
+
+.segment.active[data-level="6"],
+.segment.active[data-level="7"] {
+  background-color: orange;
+}
+
+.segment.active[data-level="8"],
+.segment.active[data-level="9"],
+.segment.active[data-level="10"] {
+  background-color: red;
+}
+
+/* Distortion Controls */
+#distortionControls {
+  margin-top: 20px;
+}
+
+#distortionControls button {
+  background-color: #f9f9f795;
+  border: 2px solid #666;
+  color: #0c0b0b;
+  padding: 8px 16px;
+  margin: 5px;
+}
+
+#distortionControls button:hover {
+  background-color: #333;
+  border-color: #f50c0c;
+  color: #39f60f;
+}

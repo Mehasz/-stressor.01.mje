@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>'STRESSOR</title>
     <script src="script.js" type="module"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@1,300..900&display=swap");
+    </style>
   </head>
   <body>
-    <p>'STRESSOR COMPRESSOR</p>
+    <h1>'STRESSOR COMPRESSOR</h1>
     <div>
-  
-        <div>
-          <label for="file">Choose audio file</label>
-          <input type="file" id="file" name="audio" accept="audio/*" />
-        </div>
-        <div>
-          <button>Compress!</button>
-        </div>
-      </form>
+      <div>
+        <label for="file">Choose audio file</label>
+        <input type="file" id="file" name="audio" accept="audio/*" />
+      </div>
+      <div>
+        <button id="start" type="button">Compress!</button>
+        <button id="stop" type="button">STOP</button>
+      </div>
+
       <p>INPUT</p>
       <input
         id="inputLevel"
@@ -63,9 +67,39 @@
         step="0.5"
         value="5"
       />
+
       <label for="outputLevel" id="outputLabel">5</label>
     </div>
-    <button id="start">Play</button>
-    <button id="stop">Pause</button>
+
+    <div>
+      <label for="ratio">RATIO</label>
+      <select id="ratioSelector" name="ratio">
+        <option value="1">1:1</option>
+        <option value="2">2:1</option>
+        <option value="3">3:1</option>
+        <option value="4">4:1</option>
+        <option value="6">6:1</option>
+        <option value="10">10:1</option>
+        <option value="20">20:1</option>
+      </select>
+      <div id="grMeter" class="meter">
+        <div class="segment" style="--level: 1"></div>
+        <div class="segment" style="--level: 2"></div>
+        <div class="segment" style="--level: 3"></div>
+        <div class="segment" style="--level: 4"></div>
+        <div class="segment" style="--level: 5"></div>
+        <div class="segment" style="--level: 6"></div>
+        <div class="segment" style="--level: 7"></div>
+        <div class="segment" style="--level: 8"></div>
+        <div class="segment" style="--level: 9"></div>
+        <div class="segment" style="--level: 10"></div>
+      </div>
+    </div>
   </body>
+  <p>Distortion Mode</p>
+  <div id="distortionControls">
+    <button data-mode="dist2">Dist 2</button>
+    <button data-mode="dist3">Dist 3</button>
+    <button data-mode="off">Clean</button>
+  </div>
 </html>
